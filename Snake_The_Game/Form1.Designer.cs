@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Timer gameTimer;
             this.startButton = new System.Windows.Forms.Button();
             this.snapButton = new System.Windows.Forms.Button();
             this.picCanvas = new System.Windows.Forms.PictureBox();
             this.txtScore = new System.Windows.Forms.Label();
             this.txtHighScore = new System.Windows.Forms.Label();
-            gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +42,7 @@
             // 
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.Location = new System.Drawing.Point(560, 15);
-            this.startButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.startButton.Margin = new System.Windows.Forms.Padding(4);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(144, 59);
             this.startButton.TabIndex = 0;
@@ -55,7 +54,7 @@
             // 
             this.snapButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.snapButton.Location = new System.Drawing.Point(560, 97);
-            this.snapButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.snapButton.Margin = new System.Windows.Forms.Padding(4);
             this.snapButton.Name = "snapButton";
             this.snapButton.Size = new System.Drawing.Size(144, 59);
             this.snapButton.TabIndex = 0;
@@ -93,8 +92,7 @@
             // 
             // gameTimer
             // 
-            gameTimer.Interval = 40;
-            gameTimer.Tick += new System.EventHandler(this.GameTimerEvent);
+            this.gameTimer.Tick += new System.EventHandler(this.GameTimerEvent);
             // 
             // Form1
             // 
@@ -124,6 +122,7 @@
         private System.Windows.Forms.PictureBox picCanvas;
         private System.Windows.Forms.Label txtScore;
         private System.Windows.Forms.Label txtHighScore;
+        private System.Windows.Forms.Timer gameTimer;
     }
 }
 
