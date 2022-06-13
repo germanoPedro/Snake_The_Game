@@ -96,11 +96,125 @@ namespace Snake_The_Game
 
         private void GameTimerEvent(object sender, EventArgs e)
         {
+            //setting the dirctions
+            if (goLeft)
+            {
+                Settings.directions = "left";
+            }
+            if (goRight)
+            {
+                Settings.directions = "right";
+            }
+            if (goDown)
+            {
+                Settings.directions = "down";
+
+            }
+            if (goUp)
+            {
+                Settings.directions = "up";
+            }
+            //end of setting the directions
+
+            //make sure that all the body parts are moving accordingly
+            for (int i = Snake.Count -1 ; i >= 0 ; i--)
+            {
+
+                if (i == 0)
+                {
+                    switch(Settings.directions)
+                    {
+                        case "left":
+
+                            Snake[i].X--;
+                            break;
+                        case "right":
+                            Snake[i].X++;
+                            break;
+                        case "down":
+                            Snake[i].Y++;
+                            break;
+                        case "up":
+                            Snake[i].Y--;
+                            break;
+                    }
+
+
+                    //make the snake appear on the ofther side
+
+
+                    if (Snake[i].X < 0)
+                    {
+                        Snake[i].X = maxWidth;
+                    }
+
+                    if (Snake[i].X > maxWidth)
+                    {
+                        Snake[i].X = 0;
+                    }
+                    if (Snake[i].Y < 0)
+                    {
+                        Snake[i].Y = maxHeight;
+                    }
+                    if (Snake[i].Y > maxHeight)
+                    {
+                        Snake[i].Y = 0;
+                    }
+
+                }
+                else
+                {
+                    ///one body part will follow the other
+                    Snake[i].X = Snake[i - 1].X;
+                    Snake[i].Y = Snake[i - 1].Y;
+
+                }
+
+
+            }
+
+            picCanvas.Invalidate();
+
+
 
         }
 
         private void UpdatePictureBoxGraphics(object sender, PaintEventArgs e)
         {
+            Graphics canvas = e.Graphics;
+
+            Brush snakeColor;
+
+            for (int i = 0; i < Snake.Count; i++)
+                //loop for snake, head and body
+            {
+                if  (i == 0 )
+                    //this will be the head of the snake
+                {
+                    snakeColor = Brushes.Black;
+                }
+                else
+                {
+                    snakeColor= Brushes.DarkCyan;
+                }
+
+
+                canvas.FillEllipse
+                    (snakeColor, new Rectangle                    
+                        (
+                        Snake[i].X*Settings.Width,
+                        Snake[i].Y*Settings.Height,
+                        Settings.Width,Settings.Height));
+            }
+            //this will be the food
+            canvas.FillEllipse(Brushes.DarkRed, new Rectangle
+            (
+            food.X * Settings.Width,
+            food.Y * Settings.Height,
+            Settings.Width, Settings.Height
+            ));
+
+
 
         }
 
