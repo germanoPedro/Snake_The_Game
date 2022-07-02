@@ -122,7 +122,7 @@ namespace Snake_The_Game
 
                 if (i == 0)
                 {
-                    switch(Settings.directions)
+                    switch (Settings.directions)
                     {
                         case "left":
 
@@ -160,6 +160,28 @@ namespace Snake_The_Game
                     {
                         Snake[i].Y = 0;
                     }
+
+                    //eating the food 
+                    if (Snake[i].X == food.X && Snake[i].Y == food.Y)
+                    {
+                        EatFood();
+                    }
+
+
+                    //if the snake eats a part of its own body
+                    for (int j = 1; j < Snake.Count; j++)
+                    {
+                        if (Snake[i].X == Snake[j].X && Snake[i].Y == Snake[j].Y)
+                        {
+                            GameOver();
+                        }
+                    }
+
+
+
+
+
+
 
                 }
                 else
@@ -256,13 +278,41 @@ namespace Snake_The_Game
 
         private void EatFood()
         {
+            score += 1;
 
+            txtHighScore.Text = "Score: " + score;
+
+
+
+
+            //add a bodypart to the circle
+            Circle body = new Circle
+            {
+                X = Snake[Snake.Count - 1].X,
+                Y = Snake[Snake.Count - 1].Y,
+            };
+            Snake.Add(body);
+            food = new Circle { X = rand.Next(2, maxWidth), Y = rand.Next(2, maxHeight) };//randomly generate a number between 2 and the max width
 
         }
 
         private void GameOver()
         {
+            gameTimer.Stop();
+            startButton.Enabled = true;
+            snapButton.Enabled = true;
 
+
+
+            if (score > highScore)
+            {
+
+                highScore = score;
+
+                txtHighScore.Text = "High Score: " + Environment.NewLine + highScore;
+                txtHighScore.ForeColor = Color.Maroon;
+                txtHighScore.TextAlign = ContentAlignment.MiddleCenter;
+            }
         }
 
 
